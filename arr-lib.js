@@ -3,24 +3,33 @@ var arrLib = {};
 arrLib = (function (context) {
 
     context.max = function (arr) {
-        let max = arr[0];
-        for (let i = 1; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-            }
-        }
-        return max;
+        return min_max(arr, "max");
     };
 
     context.min = function (arr) {
-        let min = arr[0];
+        return min_max(arr, "min");
+    };
+
+    let min_max = function (arr, type) {
+        let k;
+        let val;
+        switch (type) {
+            case "min":
+                k = 1;
+                val = arr[0];
+                break;
+            case "max":
+                k = -1;
+                val = arr[0];
+                break;
+        }
         for (let i = 1; i < arr.length; i++) {
-            if (arr[i] < min) {
-                min = arr[i];
+            if (k * arr[i] < k * val) {
+                val = arr[i];
             }
         }
-        return min;
-    };
+        return val;
+    }
 
     context.mean = function (arr) {
         let sum = 0;
