@@ -29,7 +29,7 @@ arrLib = (function (context) {
             }
         }
         return val;
-    }
+    };
 
     context.mean = function (arr) {
         let sum = 0;
@@ -85,7 +85,7 @@ arrLib = (function (context) {
             default:
                 return sortBubble(arr);
         }
-    }
+    };
 
     context.getMaxSubSum = function (arr) {
         let maxSum = 0;
@@ -106,3 +106,5 @@ arrLib = (function (context) {
     return context;
 
 })(arrLib);
+
+module.exports=arrLib;
