@@ -1,34 +1,24 @@
-var arrLib = {};
+let arrLib = {};
 
 arrLib = (function (context) {
-
     context.max = function (arr) {
-        return min_max(arr, "max");
+        let max = arr[0];
+        for (let i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        return max;
     };
 
     context.min = function (arr) {
-        return min_max(arr, "min");
-    };
-
-    let min_max = function (arr, type) {
-        let k;
-        let val;
-        switch (type) {
-            case "min":
-                k = 1;
-                val = arr[0];
-                break;
-            case "max":
-                k = -1;
-                val = arr[0];
-                break;
-        }
+        let min = arr[0];
         for (let i = 1; i < arr.length; i++) {
-            if (k * arr[i] < k * val) {
-                val = arr[i];
+            if (arr[i] < min) {
+                min = arr[i];
             }
         }
-        return val;
+        return min;
     };
 
     context.mean = function (arr) {
@@ -46,17 +36,21 @@ arrLib = (function (context) {
             swapped = false;
             for (let j = 0; j < n - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
-                    let tmp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = tmp;
+                    swap(arr, j);
                     swapped = true;
                 }
             }
-            if (swapped == false) {
+            if (swapped === false) {
                 break;
             }
         }
         return arr;
+    };
+
+    let swap = function (arr, j) {
+        let tmp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = tmp;
     };
 
     let sortSelection = function (arr) {
@@ -83,12 +77,14 @@ arrLib = (function (context) {
             case "selection":
                 return sortSelection(arr);
             default:
-                return sortBubble(arr);
+                return new Error("Unsupported algorithm")
         }
     };
 
     context.getMaxSubSum = function (arr) {
-        let maxSum = 0;
+        if (arr.length === 0)
+            return null;
+        let maxSum = arr[0];
         for (let i = 0; i < arr.length; i++) {
             for (let j = i; j < arr.length; j++) {
                 let sum = 0;
@@ -107,4 +103,4 @@ arrLib = (function (context) {
 
 })(arrLib);
 
-module.exports=arrLib;
+module.exports = arrLib;
